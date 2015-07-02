@@ -1,8 +1,13 @@
 class Taco < ActiveRecord::Base
   belongs_to :taqueria
-  has_many :images
-  has_many :categorized_tacos
-  has_many :categories, through: :categorized_tacos
+  belongs_to :user
+  belongs_to :tortilla
+  has_many :images  
+  has_many :ingredient_fillings  
+  has_many :ingredient_salsas  
+  has_many :ingredient_garnishes 
+  has_many :taste_ratings 
+  has_many :heat_ratings  
   
   validates :name, presence: true
   validates :description, presence: true

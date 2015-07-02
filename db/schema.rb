@@ -11,16 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628214729) do
+ActiveRecord::Schema.define(version: 20150702015223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "filling_categories", force: :cascade do |t|
-    t.integer  "taco_id"
-    t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   create_table "heat_ratings", force: :cascade do |t|
@@ -29,11 +28,19 @@ ActiveRecord::Schema.define(version: 20150628214729) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "images", force: :cascade do |t|
+    t.string   "image_url"
+    t.integer  "taco_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ingredient_fillings", force: :cascade do |t|
     t.string   "meat"
     t.integer  "authenticity"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "filling_categories_id"
   end
 
   create_table "ingredient_garnishes", force: :cascade do |t|
@@ -56,13 +63,17 @@ ActiveRecord::Schema.define(version: 20150628214729) do
 
   create_table "tacos", force: :cascade do |t|
     t.string   "name"
-    t.decimal  "price",        precision: 8, scale: 2
+    t.decimal  "price",                   precision: 8, scale: 2
     t.text     "description"
-    t.integer  "taste_rating"
-    t.integer  "heat_rating"
+    t.integer  "taste_rating_id"
+    t.integer  "heat_rating_id"
     t.integer  "taqueria_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "ingredients_tortilla_id"
+    t.integer  "ingredients_garnish_id"
+    t.integer  "ingredients_salsa_id"
   end
 
   create_table "taquerias", force: :cascade do |t|
@@ -82,11 +93,11 @@ ActiveRecord::Schema.define(version: 20150628214729) do
 
   create_table "user_ratings", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "taste_rating"
-    t.integer  "heat_rating"
+    t.integer  "taste_rating_id"
+    t.integer  "heat_rating_id"
     t.integer  "taco_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "users", force: :cascade do |t|

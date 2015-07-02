@@ -5,4 +5,21 @@ Rails.application.routes.draw do
   get "/tacos"      => 'tacos#index'
   get "/tacos/new"  => 'tacos#new'
   post "/tacos"     => 'tacos#create'
+
+  
+  get "/tacos/:id/edit" => 'tacos#edit'
+  delete "/tacos/:id" => 'tacos#destroy'
+  patch "/tacos/:id" => 'tacos#update'
+  get "/tacos/:id" => 'tacos#show'
+  post "/search" => 'tacos#search'
+
+  get '/taquerias' => 'taquerias#index'
+  get '/taquerias/new' => 'taquerias#new'
+  post '/taquerias' => 'taquerias#create'
+  get '/taquerias/:id' => 'taquerias#show', as: :supplier
+  get '/taquerias/:id/edit' => 'taquerias#edit'
+  patch '/taquerias/:id' => 'taquerias#update'
+  delete '/taquerias/:id' => 'taquerias#destroy'
+
+
 end

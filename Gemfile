@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+#carrierwave for image uploads
+gem 'carrierwave'
 #geocoder for mapping and location
 gem 'geocoder'
 #devise for user authentication
