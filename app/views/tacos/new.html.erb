@@ -1,0 +1,58 @@
+<section>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="taco_single">
+        <h1>Create a new taco:</h1>
+
+        <%= form_for @taco do |f| %>
+
+        <div>
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+        </div>
+        
+        <div>
+          <%= f.label :price %>
+          <%= f.text_field :price %>
+        </div>
+        <div>
+          <%= f.label :description %>
+          <%= f.text_area :description %>
+        </div>
+        <div>
+          <%= f.fields_for :restaurants do |ff| %>
+            <%= ff.label :name %>
+            <%= ff.text_field :name %>
+          <% end %>
+          <%= f.label :address %>
+          <%= f.text_area :address %>
+        </div>
+        <div>
+          <h2>Taste: <%= f.select :taste_rating_id, TasteRating.all.map{ |rating| rating.taste_rating } %></h2>
+        </div>
+        <div>
+          <h2>Heat: <%= f.select :heat_rating_id, HeatRating.all.map{ |rating| rating.heat_rating } %></h2>
+        </div>
+        <div>
+          <h2>Tortilla: <%= f.select :ingredients_tortilla_id, IngredientTortilla.all.map{ |tortilla| [tortilla.name, tortilla.id] } %></h2>
+        </div>
+        <div>
+          <h2>Meat: <%= f.select :ingredients_filling_id, IngredientFilling.all.map{ |filling| [filling.meat, filling.id] } %></h2>
+        </div>
+        <div>
+          <h2>Salsa: <%= f.select :ingredients_salsa_id,  IngredientSalsa.all.map{ |salsa| [salsa.name, salsa.id] } %></h2>
+        </div>
+        <div>
+          <h2>Garnishes:</h2>
+          <%= f.fields_for :checked_boxes do |cb| %>
+            <% IngredientGarnish.all.each do |garnish| %>
+            <%= cb.check_box(garnish.id) %>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.submit "Add Taco" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

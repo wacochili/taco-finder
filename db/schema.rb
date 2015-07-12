@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702015223) do
+ActiveRecord::Schema.define(version: 20150712214443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20150702015223) do
   end
 
   create_table "images", force: :cascade do |t|
-    t.string   "image_url"
+    t.string   "image"
     t.integer  "taco_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20150702015223) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "taco_id"
   end
 
   create_table "ingredient_salsas", force: :cascade do |t|
@@ -61,19 +62,40 @@ ActiveRecord::Schema.define(version: 20150702015223) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "restaurants", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.integer  "taco_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tacos", force: :cascade do |t|
     t.string   "name"
     t.decimal  "price",                   precision: 8, scale: 2
     t.text     "description"
     t.integer  "taste_rating_id"
     t.integer  "heat_rating_id"
-    t.integer  "taqueria_id"
+    t.integer  "restaurant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "ingredients_tortilla_id"
     t.integer  "ingredients_garnish_id"
     t.integer  "ingredients_salsa_id"
+    t.integer  "ingredients_filling_id"
+  end
+
+  create_table "taqueria", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.integer  "taco_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "taquerias", force: :cascade do |t|
@@ -83,6 +105,7 @@ ActiveRecord::Schema.define(version: 20150702015223) do
     t.float    "latitude"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "taco_id"
   end
 
   create_table "taste_ratings", force: :cascade do |t|
@@ -113,6 +136,7 @@ ActiveRecord::Schema.define(version: 20150702015223) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.boolean  "admin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
