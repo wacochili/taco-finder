@@ -13,6 +13,7 @@ class Taco < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
 
-  attr_accessor :address
+  attr_accessor :address, :latitude, :longitude
+  geocoded_by :address
 
 end

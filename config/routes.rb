@@ -14,13 +14,13 @@ Rails.application.routes.draw do
   get "/tacos/:id" => 'tacos#show'
   post "/search" => 'tacos#search'
 
-  get '/taquerias' => 'taquerias#index'
-  get '/taquerias/new' => 'taquerias#new'
-  post '/taquerias' => 'taquerias#create'
-  get '/taquerias/:id' => 'taquerias#show', as: :taqueria
-  get '/taquerias/:id/edit' => 'taquerias#edit'
-  patch '/taquerias/:id' => 'taquerias#update'
-  delete '/taquerias/:id' => 'taquerias#destroy'
+  get '/restaurants' => 'restaurants#index'
+  get '/restaurants/new' => 'restaurants#new'
+  post '/restaurants' => 'restaurants#create'
+  get '/restaurants/:id' => 'restaurants#show', as: :restaurant
+  get '/restaurants/:id/edit' => 'restaurants#edit'
+  patch '/restaurants/:id' => 'restaurants#update'
+  delete '/restaurants/:id' => 'restaurants#destroy'
 
 
 end
