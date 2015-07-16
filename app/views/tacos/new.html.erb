@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="taco_single">
-        <h1>Create a new taco:</h1>
+        <h2>Create a new taco:</h2>
 
         <%= form_for @taco do |f| %>
 
@@ -18,14 +18,6 @@
         <div>
           <%= f.label :description %>
           <%= f.text_area :description %>
-        </div>
-        <div>
-          <%= f.fields_for :restaurant do |ff| %>
-          <%= ff.label :name %>
-          <%= ff.text_field :name %>
-          <% end %>
-          <%= f.label :address %>
-          <%= f.text_area :address %>
         </div>
         <div>
           <h2>Taste: <%= f.select :taste_rating_id, TasteRating.all.map{ |rating| rating.taste_rating } %></h2>
@@ -44,11 +36,21 @@
         </div>
         <div>
           <h2>Garnishes:</h2>
-          <%= f.fields_for :checked_boxes do |cb| %>
-          <% IngredientGarnish.all.each do |garnish| %>
-          <%= cb.check_box(garnish.id) %>
+          <%= f.label :ingredient_garnish_ids %>
+          <%= f.select :ingredient_garnish_ids, IngredientGarnish.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
+        </div>
+
+        <div>
+          <%= f.fields_for :restaurant do |ff| %>
+          <%= ff.label :name %>
+          <%= ff.text_field :name %>
+
+          <%= ff.label :phone %>
+          <%= ff.text_area :phone %>
+          <%= ff.label :address %>
+          <%= ff.text_area :address %>
           <% end %>
-          <% end %>
+          
         </div>
         <%= f.submit "Add Taco" %>
         <% end %>

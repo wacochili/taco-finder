@@ -5,15 +5,15 @@ class Taco < ActiveRecord::Base
   belongs_to :ingredient_tortilla
   has_many :images  
   has_many :ingredient_fillings  
-  has_many :ingredient_salsas  
-  has_many :ingredient_garnishes 
+  has_many :ingredient_salsas 
+  has_many :garnished_tacos 
+  has_many :ingredient_garnishes, through: :garnished_tacos
   has_many :taste_ratings 
-  has_many :heat_ratings  
+  has_many :heat_ratings
   
   validates :name, presence: true
   validates :description, presence: true
 
-  attr_accessor :address, :latitude, :longitude
   geocoded_by :address
 
 end
