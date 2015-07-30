@@ -1,2 +1,0 @@
-class TaqueriasController < ApplicationController
-end

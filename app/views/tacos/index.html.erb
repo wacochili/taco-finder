@@ -1,1 +1,57 @@
-<h1>Are you working?</h1>
+<section id="taco_main">
+  <div class="row">
+    <div class="col-xs-12">
+      <!--MAP WILL ULTIMATELY GO HERE???-->
+      <div id="mapka"></div>
+    </div>
+    <div class="col-sm-3 col-xs-12 top-tacos-list">
+    <h2>Authentic Tacos Near You</h2>
+      <!--THIS SHOULD ULTIMATELY BE LOCATION-BASED AS WELL-->
+        <% @tacos.limit(10).order("authentic_score desc").each do |taco| %>
+        <div class="row">
+          <div class="col-xs-6">
+            <h4><a href="/tacos/<%= taco.id %>" title="View <%= taco.name %>"><%= taco.name %></a></h4>
+            <h3><%= taco.restaurant.name %></h3>
+          </div>
+          <div class="col-xs-6">
+            <a href="/tacos/<%= taco.id %>" title="View <%= taco.name %>"><img src="<%= taco.images.last.photo %>" class="img-responsive taco_single_image"></a>
+          </div>
+        </div>
+        <% end %>
+    </div>
+  </div>
+</section>
+<section id="taco_why">
+  <h1>WHAT IS THIS?</h1>
+</section>
+<section id="taco_stage1">
+  <h1>TORTILLA</h1>
+  <div id="tortilla">
+    <%= image_tag("corn-tortilla.png", :alt => "corn tortilla", :width => "488", :height => "488", :class => "center-block img-responsive") %>
+  </div>
+</section>
+<section id="taco_stage2">
+  <h1>MEAT</h1>
+  <div id="meat">
+  <%= image_tag("Pork-Belly-Carnitas-overhead-WM.png", :alt => "pork carnitas", :width => "400", :height => "436", :class => "center-block img-responsive") %>
+  </div>
+</section>
+<section id="taco_stage3">
+  <h1>GARNISH</h1>
+  <div id="garnish">
+    <%= image_tag("onion-cilantro.png", :alt => "onions and cilantro", :width => "488", :height => "488", :class => "center-block img-responsive") %>
+  </div>
+</section>
+<section id="taco_stage4">
+  <h1>SALSAS</h1>
+  <div id="salsas">
+    <%= image_tag("salsa.png", :alt => "salsa", :width => "488", :height => "488", :class => "center-block img-responsive") %>
+  </div>
+</section>
+<section id="taco_stage5">
+  <h1>TACOS!</h1>
+  <div id="tacos">
+  </div>
+</section>
+
+ 

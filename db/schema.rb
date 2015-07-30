@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716003748) do
+ActiveRecord::Schema.define(version: 20150729003514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,14 +29,8 @@ ActiveRecord::Schema.define(version: 20150716003748) do
     t.datetime "updated_at"
   end
 
-  create_table "heat_ratings", force: :cascade do |t|
-    t.integer  "heat_rating"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "images", force: :cascade do |t|
-    t.string   "image"
+    t.string   "photo"
     t.integer  "taco_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -52,21 +46,24 @@ ActiveRecord::Schema.define(version: 20150716003748) do
 
   create_table "ingredient_garnishes", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "taco_id"
+    t.integer  "authenticity"
   end
 
   create_table "ingredient_salsas", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "authenticity"
   end
 
   create_table "ingredient_tortillas", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "authenticity"
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -82,7 +79,7 @@ ActiveRecord::Schema.define(version: 20150716003748) do
 
   create_table "tacos", force: :cascade do |t|
     t.string   "name"
-    t.decimal  "price",                   precision: 8, scale: 2
+    t.decimal  "price",                  precision: 8, scale: 2
     t.text     "description"
     t.integer  "taste_rating_id"
     t.integer  "heat_rating_id"
@@ -90,44 +87,19 @@ ActiveRecord::Schema.define(version: 20150716003748) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.integer  "ingredients_tortilla_id"
-    t.integer  "ingredients_salsa_id"
-    t.integer  "ingredients_filling_id"
-  end
-
-  create_table "taqueria", force: :cascade do |t|
-    t.string   "name"
-    t.string   "phone"
-    t.float    "longitude"
-    t.float    "latitude"
-    t.integer  "taco_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "taquerias", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "phone"
-    t.float    "longitude"
-    t.float    "latitude"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "taco_id"
-  end
-
-  create_table "taste_ratings", force: :cascade do |t|
-    t.integer  "taste_rating"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "ingredient_tortilla_id"
+    t.integer  "ingredient_salsa_id"
+    t.integer  "ingredient_filling_id"
+    t.float    "authentic_score"
   end
 
   create_table "user_ratings", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "taste_rating_id"
-    t.integer  "heat_rating_id"
+    t.decimal  "taste_rating", precision: 4, scale: 2
+    t.decimal  "heat_rating",  precision: 4, scale: 2
     t.integer  "taco_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "users", force: :cascade do |t|

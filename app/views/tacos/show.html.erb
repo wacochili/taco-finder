@@ -1,9 +1,49 @@
-<h1>Your Taco Is Ready!</h1>
 <section>
-<div class="row">
-<div class="col-sm-9">
-<h2><%= @taco.name %></h2>
-<p>Price: <%= number_to_currency@taco.price %></p>
-<p>Description: <%= @taco.description %></p>
-</div>
+  <div class="row">
+    <div class="col-sm-7"><!--main display window-->
+      <h2><%= @taco.name %></h2>
+      <h3><%= @taco.restaurant.name %></h3>
+      <h3><%= @taco.restaurant.address %></h3>
+      <p><a href="http://maps.google.com/?q=<%= @taco.restaurant.address %>" target="_blank">Map It</a></p>
+      <div class="row"><!--Display featured or first image for taco-->
+          <div class="col-sm-12">
+          <img src="<%=@taco.images.last.photo %>" class="img-responsive taco_single_image">
+          </div>
+      </div>
+      <p>Price: <%= number_to_currency@taco.price %></p>
+      <p>Description: <%= @taco.description %></p>
+      <div class="row"><!--grid display of taco images-->
+        <% @taco.images.each do |image|%>
+        <div class="col-md-4 col-sm-6">
+          <img src="<%= image.photo %>" class="img-responsive taco_single_image">
+        </div>
+        <% end %> 
+        <div class="col-sm-12">
+        <% if user_signed_in? && current_user.admin %>
+        <%= link_to "Edit", "/tacos/#{@taco.id}/edit", class: "btn btn-success" %>
+        <%= link_to "Delete", "/tacos/#{@taco.id}", {method: :delete, class: "btn btn-danger"} %>
+        <% end %>
+        </div>
+      </div><!--end main display window-->
+    </div>
+    <div class="col-sm-5">
+    <h2>What others think:</h2>
+    <h3>Taste: <%= number_with_precision(@taste_rating, :precision => 1) %> &nbsp;Heat: <%= number_with_precision(@heat_rating, :precision => 1) %></h3>
+      <% if user_signed_in? %>
+      <h2>Rate this taco:</h2>
+        <%= form_tag '/user_ratings', method: :post do %>
+          <div class="col-sm-6">
+            <h3>Taste: <%= text_field_tag :taste_rating %></h3>
+          </div>
+          <div class="col-sm-6">
+            <h3>Heat:<%= text_field_tag :heat_rating %></h3>
+            <%= hidden_field_tag :taco_id, @taco.id %>
+          </div>
+          <div class="col-sm-12">
+            <%= hidden_field_tag :taco_id, @taco.id %>
+            <%= submit_tag "Submit Rating" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
 </section>

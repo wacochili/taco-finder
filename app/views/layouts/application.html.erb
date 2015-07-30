@@ -5,10 +5,18 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
+  <!--Connecting to the google maps api using api key-->
+  <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZYqqJCc4RxkAgrIQ4oNJDhGgTW2rSSXY&sensor=true"></script>-->
+  <!--<script type="text/javascript">console.log(google);
+
+  </script>-->
+  <!--Google fonts-->
   <link href='//fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=UnifrakturMaguntia' rel='stylesheet' type='text/css'>
 </head>
-<body>
+<body class="<%= body_class %>">
+<div id="taco-map" class="taco-map-container"></div>
 <header>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -26,7 +34,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><h1 class="main-title">Exploding Tacos</h1></li>
+        <li><h1 class="main-title">Taco Finder</h1></li>
         
       </ul>
 
@@ -48,7 +56,7 @@
             <li><%= link_to "Sign In", "/users/sign_in" if current_user == nil %></li>
             <li><%= link_to "Sign Out", "/users/sign_out", method: :delete if current_user %></li>
             <% if user_signed_in? && current_user.admin %>
-            <li><a href="/suppliers/new">Add Supplier</a></li>
+            <li><a href="/suppliers/new">Add Taqueria</a></li>
             <% end %>
           </ul>
         </li>
