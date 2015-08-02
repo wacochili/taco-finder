@@ -1,6 +1,11 @@
+$tangerine:#f29b29;
+$pink:#ea1c7c;
+$purple:#b22790;
+$chartruese:#dee04a;
+$lime:#aac437;
 html,body{
   font-family: 'Love Ya Like A Sister', cursive;
-  background-image: image-url("<%= asset_path('img-noise-361x370.png') %>");
+  background-image: image-url("<%= asset_path('img-noise-tangering361x370') %>");
   background-repeat: repeat;
  }
  header{
@@ -12,13 +17,16 @@ html,body{
   z-index: 54;
  }
  .navbar-default .navbar-nav > li > a {
-  color: #73152D;
+  color: $pink;
   font-size: 200%;
 }
 .navbar-nav > li > .dropdown-menu{
   z-index: 99;
 }
  .container-fluid{
+  padding:0;
+ }
+ .tacos-show .container-fluid,.tacos-new .container-fluid{
   padding:0 5%;
  }
  .signup-in{
@@ -27,7 +35,7 @@ html,body{
  h1{
   font-family: 'Love Ya Like A Sister', cursive;
   font-size: 12vw;
-  color:#73152D;
+  color:$pink;
  }
  @media all and (min-width: 768px){
    h1{
@@ -41,12 +49,15 @@ header h1{
   font-family: 'Love Ya Like A Sister', cursive;
   font-size: 7vw;
   line-height: 1.25;
-  color:#73152D;
+  color:$pink;
  }
  @media all and (min-width: 768px){
    h2{
     font-size: 2.5vw;
    }
+}
+h3.restaurant{
+  color:$purple;
 }
  .rating{
   color:#73152D;
@@ -75,6 +86,8 @@ header h1{
  .taco_single_image{
   margin-bottom: 20px;
   width:100%;
+  border: 4px solid #FFF;
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.25);
  }
  .btn{
   margin-top:20px;
@@ -88,19 +101,28 @@ header h1{
   padding:10px;
   position: relative;
   right:0;
-  background-color:#73152D;
+  background-color:$chartruese;
   color: #FFF;
   text-align: left;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.25);
+}
+p.map_it a{
+  color:$purple;
+  font-size: 150%;
 }
 .top-tacos-list h2{
-  color: #FFF;
+  color: $pink;
 }
 .top-tacos-list h3{
   margin-top:0;
-  font-size:1.5em;
+  font-size:1em;
+  color:#333;
 }
 .top-tacos-list h4{
   margin-top: 0;
+}
+.top-tacos-list a {
+  color:$purple;
 }
 @media all and (min-width: 768px){
  .top-tacos-list{
@@ -121,7 +143,7 @@ header h1{
     z-index: 17;
   }
 }
-.tacos-new .taco-map-container, .tacos-show .taco-map-container{
+.tacos-new .taco-map-container, .tacos-show .taco-map-container, .restaurants-index .taco-map-container{
   display: none;
 }
 #taco_main,#taco_why,#taco_stage1,#taco_stage2,#taco_stage3,#taco_stage4,#taco_stage5{
@@ -129,6 +151,30 @@ header h1{
   overflow: hidden;
   text-align: center;
   position: relative;
+}
+#taco_why{
+  background-color:$tangerine;
+}
+#taco_stage1{
+  background-color:$purple;
+}
+#taco_stage1 h1{
+  color:$lime;
+}
+#taco_stage2{
+  background-color:$pink;
+}
+#taco_stage2 h1{
+  color:$chartruese;
+}
+#taco_stage3{
+  background-color:$lime;
+}
+#taco_stage4{
+  background-color:$chartruese;
+}
+#taco_stage5{
+  background-color:$tangerine;
 }
 #taco_stage2{
   background-image: url(<%= image_url('corn-tortilla.png') %> );

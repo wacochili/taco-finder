@@ -1,10 +1,10 @@
 <section>
   <div class="row">
-    <div class="col-sm-7"><!--main display window-->
+    <div class="col-sm-8"><!--main display window-->
       <h2><%= @taco.name %></h2>
-      <h3><%= @taco.restaurant.name %></h3>
-      <h3><%= @taco.restaurant.address %></h3>
-      <p><a href="http://maps.google.com/?q=<%= @taco.restaurant.address %>" target="_blank">Map It</a></p>
+      <h3 class="restaurant"><%= @taco.restaurant.name %></h3>
+      <h4><%= @taco.restaurant.address %></h4>
+      <p class="map_it"><a href="http://maps.google.com/?q=<%= @taco.restaurant.address %>" target="_blank"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>Map It</a></p>
       <div class="row"><!--Display featured or first image for taco-->
           <div class="col-sm-12">
           <img src="<%=@taco.images.last.photo %>" class="img-responsive taco_single_image">
@@ -26,7 +26,7 @@
         </div>
       </div><!--end main display window-->
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-4">
     <h2>What others think:</h2>
     <h3>Taste: <%= number_with_precision(@taste_rating, :precision => 1) %> &nbsp;Heat: <%= number_with_precision(@heat_rating, :precision => 1) %></h3>
       <% if user_signed_in? %>

@@ -10,5 +10,6 @@ json.restaurants @restaurants do |restaurant|
   	json.id taco.id
     json.name taco.name
     json.description taco.description
+    json.authentic_score taco.authentic_score
   end
 end

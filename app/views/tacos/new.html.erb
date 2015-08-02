@@ -35,7 +35,7 @@
         <div>
           <%= f.fields_for :images do |ff| %>
             <%= ff.label :photo %>
-            <%= ff.file_field :photo %>
+            <%= ff.file_field :photo, multiple: true, name: "taco[images_attributes][][photo]" %>
           <% end %>
         </div>
         <div>
