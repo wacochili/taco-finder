@@ -5,7 +5,7 @@ var userLong = 0;
 function initialize() {
     // Get the coordinates
     // First try from session storage
-    var sessionUserLat = window.sessionStorage.userLat;
+    var sessionUserLat = window.sessionStorage.userLat; //if I make my index page pull tacos with Angular, I can use this sessionStorage to get user location and only display tacos based on that location ~ KBhatt
     var sessionUserLong = window.sessionStorage.userLong;
     if (sessionUserLat === undefined || sessionUserLong === undefined)  {
         if (navigator.geolocation) {
@@ -219,7 +219,7 @@ map.mapTypes.set('Grayscale', mapType);
 map.setMapTypeId('Grayscale');
 
 function showInfoWindow(event){
-    var contentString = '<p><b>' + this.title + '</b><br>' +  this.address + '</p>';
+    var contentString = '<h4>' + this.title + '</h4><p>' + this.address + '</p><p><a href="http://maps.google.com/?q=' + this.address + '" target="_blank">Map It!</a></p>';
     var infowindow = new google.maps.InfoWindow({
         content: contentString,
         maxWidth: 200
@@ -275,4 +275,10 @@ function clearMap(){
 }
 
 //- Using a function pointer:
-document.getElementById("refreshMap").onclick = clearMap;
+//document.getElementById("refreshMap").onclick(clearMap);
+
+$(document).ready(function(){
+    $('#refreshMap').click(function(){
+       clearMap();
+    });
+  });

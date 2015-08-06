@@ -1,32 +1,22 @@
 class TacosController < ApplicationController
   before_action :authenticate_admin!, except: [:index, :show, :search]
   def index
+    p request.remote_ip
     @tacos = Taco.all
   end
 
   def show
+    if current_user
+      @current_user_id = current_user.id
+    else
+      @current_user_id = ""
+    end
     if params[:id] == "random"
       taco = Taco.all
       @taco = taco.sample
     else
       @taco = Taco.find_by(id: params[:id])
     end
-    heat_rating_total = 0
-    taste_rating_total = 0
-    user_ratings = UserRating.where(taco_id: @taco.id)
-    user_ratings.each do |rating|
-      heat_rating_total += rating.heat_rating
-      taste_rating_total += rating.taste_rating
-    end
-    if user_ratings.length != 0
-      @heat_rating = heat_rating_total / user_ratings.length
-      @taste_rating = taste_rating_total / user_ratings.length
-    else
-      @heat_rating = 0
-      @taste_rating = 0
-    end
-
-
   end
 
   def new

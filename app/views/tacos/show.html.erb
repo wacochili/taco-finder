@@ -1,49 +1,88 @@
 <section>
-  <div class="row">
-    <div class="col-sm-8"><!--main display window-->
-      <h2><%= @taco.name %></h2>
-      <h3 class="restaurant"><%= @taco.restaurant.name %></h3>
-      <h4><%= @taco.restaurant.address %></h4>
-      <p class="map_it"><a href="http://maps.google.com/?q=<%= @taco.restaurant.address %>" target="_blank"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>Map It</a></p>
-      <div class="row"><!--Display featured or first image for taco-->
-          <div class="col-sm-12">
-          <img src="<%=@taco.images.last.photo %>" class="img-responsive taco_single_image">
+  <div ng-app="app">
+    <div ng-controller="userRatingCtrl" ng-init="setup(<%= @taco.id %>)">
+      <div class="row">
+        <div class="col-sm-12"><!--main display window-->
+          <div class="row"><!--Display featured or first image for taco-->
+              <div class="col-sm-12">
+              <img src="<%=@taco.images.last.photo %>" class="img-responsive taco_single_image">
+              </div>
           </div>
+          <h2>Price: <%= number_to_currency@taco.price %></h2>
+          <h3 class="taco_description">Description: <%= @taco.description %></h3>
+          <div class="row"><!--grid display of taco images-->
+            <% @taco.images.each do |image|%>
+            <div class="col-md-4 col-sm-6">
+              <img src="<%= image.photo %>" class="img-responsive taco_single_image">
+            </div>
+            <% end %> 
+            <div class="col-sm-12">
+            <% if user_signed_in? && current_user.admin %>
+            <%= link_to "Edit", "/tacos/#{@taco.id}/edit", class: "btn btn-success" %>
+            <%= link_to "Delete", "/tacos/#{@taco.id}", {method: :delete, class: "btn btn-warning"} %>
+            <% end %>
+            </div>
+          </div><!--end main display window-->
+        </div>
+        <div class="col-sm-3 single-taco-stats">
+        <a href="http://www.facebook.com/share.php?u=http://localhost:3000/tacos/<%= params[:id] %>" onclick="window.open(this.href, 'Facebook', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="fb_share"><%= image_tag 'FacebookButton.png', width: '40', height: '40', alt: 'Facebook logo' %></a>
+        <a href="https://twitter.com/home?status=Check%20out%20this%20taco%20on%20Taquistador!%20http://localhost:3000/tacos/<%= params[:id] %>" onclick="window.open(this.href, 'Twitter', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="tw_share"><%= image_tag 'TwitterButton.png', width: '40', height: '40', alt: 'Facebook logo' %></a>
+        <h2><%= @taco.name %></h2>
+          <h3 class="restaurant"><%= @taco.restaurant.name %></h3>
+          <h4><%= @taco.restaurant.address %></h4>
+          <p class="map_it"><a href="http://maps.google.com/?q=<%= @taco.restaurant.address %>" target="_blank"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>Map It</a></p>
+        <h2>What others think:</h2>
+        <h3>Taste: {{user_ratings.taste_rating}} &nbsp;Heat: {{user_ratings.heat_rating}}</h3>
+          <% if user_signed_in? %>
+          <h2>Rate this taco:</h2>
+          <h3>Taste:</h3>
+            <label>
+              <input type="radio" ng-model="newTasteRating" value="1">
+            1
+            </label>
+            <label>
+              <input type="radio" ng-model="newTasteRating" value="2">
+            2
+            </label>
+            <label>
+              <input type="radio" ng-model="newTasteRating" value="3">
+            3
+            </label>
+            <label>
+              <input type="radio" ng-model="newTasteRating" value="4">
+            4
+            </label>
+            <label>
+              <input type="radio" ng-model="newTasteRating" value="5">
+            5
+            </label>
+            <h3>Heat:</h3>
+            <label>
+              <input type="radio" ng-model="newHeatRating" value="1">
+            1
+            </label>
+            <label>
+              <input type="radio" ng-model="newHeatRating" value="2">
+            2
+            </label>
+            <label>
+              <input type="radio" ng-model="newHeatRating" value="3">
+            3
+            </label>
+            <label>
+              <input type="radio" ng-model="newHeatRating" value="4">
+            4
+            </label>
+            <label>
+              <input type="radio" ng-model="newHeatRating" value="5">
+            5
+            </label>
+            <button class="btn btn-warning btn-break" ng-click="addUserRating(newTasteRating,newHeatRating)">Rate Taco</button>
+          <% elsif %>
+          <h2>Sign in below to rate tacos</h2>
+          <%= link_to "Sign In", "/users/sign_in", class: "btn btn-warning" if current_user == nil %>
+          <% end %>
       </div>
-      <p>Price: <%= number_to_currency@taco.price %></p>
-      <p>Description: <%= @taco.description %></p>
-      <div class="row"><!--grid display of taco images-->
-        <% @taco.images.each do |image|%>
-        <div class="col-md-4 col-sm-6">
-          <img src="<%= image.photo %>" class="img-responsive taco_single_image">
-        </div>
-        <% end %> 
-        <div class="col-sm-12">
-        <% if user_signed_in? && current_user.admin %>
-        <%= link_to "Edit", "/tacos/#{@taco.id}/edit", class: "btn btn-success" %>
-        <%= link_to "Delete", "/tacos/#{@taco.id}", {method: :delete, class: "btn btn-danger"} %>
-        <% end %>
-        </div>
-      </div><!--end main display window-->
-    </div>
-    <div class="col-sm-4">
-    <h2>What others think:</h2>
-    <h3>Taste: <%= number_with_precision(@taste_rating, :precision => 1) %> &nbsp;Heat: <%= number_with_precision(@heat_rating, :precision => 1) %></h3>
-      <% if user_signed_in? %>
-      <h2>Rate this taco:</h2>
-        <%= form_tag '/user_ratings', method: :post do %>
-          <div class="col-sm-6">
-            <h3>Taste: <%= text_field_tag :taste_rating %></h3>
-          </div>
-          <div class="col-sm-6">
-            <h3>Heat:<%= text_field_tag :heat_rating %></h3>
-            <%= hidden_field_tag :taco_id, @taco.id %>
-          </div>
-          <div class="col-sm-12">
-            <%= hidden_field_tag :taco_id, @taco.id %>
-            <%= submit_tag "Submit Rating" %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+    </div><!--ng controller-->
+  </div><!--ng app-->
 </section>

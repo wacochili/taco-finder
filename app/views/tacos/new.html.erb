@@ -1,7 +1,8 @@
 <section>
   <div class="row">
-    <div class="col-sm-12">
-      <div class="taco_single">
+    <div class="taco_single">
+      <div class="col-sm-4">
+        
         <h2>Create a new taco:</h2>
 
         <%= form_for @taco do |f| %>
@@ -19,6 +20,9 @@
           <%= f.label :description %>
           <%= f.text_area :description %>
         </div>
+      </div>
+      <div class="col-sm-4">
+        <h2>Ingredients:</h2>
         <div>
           <h2>Tortilla: <%= f.select :ingredient_tortilla_id, IngredientTortilla.all.map{ |tortilla| [tortilla.name, tortilla.id] } %></h2>
         </div>
@@ -34,24 +38,24 @@
         </div>
         <div>
           <%= f.fields_for :images do |ff| %>
-            <%= ff.label :photo %>
-            <%= ff.file_field :photo, multiple: true, name: "taco[images_attributes][][photo]" %>
+          <%= ff.label :photo %>
+          <%= ff.file_field :photo, multiple: true, name: "taco[images_attributes][][photo]" %>
           <% end %>
         </div>
-        <div>
+      </div>
+      <div class="col-sm-4">
         <h2>Taqueria:</h2>
-          <%= f.fields_for :restaurant do |ff| %>
-          <%= ff.label :name %>
-          <%= ff.text_field :name %>
+        <%= f.fields_for :restaurant do |ff| %>
+        <%= ff.label :name %>
+        <%= ff.text_field :name %>
 
-          <%= ff.label :phone %>
-          <%= ff.text_field :phone %>
-          <%= ff.label :address %>
-          <%= ff.text_area :address %>
-          <% end %>
-          
-        </div>
-        <%= f.submit "Add Taco" %>
+        <%= ff.label :phone %>
+        <%= ff.text_field :phone %>
+        <%= ff.label :address %>
+        <%= ff.text_area :address %>
+        <% end %>
+        
+        <%= f.submit "Add Taco", class: 'btn btn-warning' %>
         <% end %>
       </div>
     </div>

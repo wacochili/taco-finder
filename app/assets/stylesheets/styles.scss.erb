@@ -2,11 +2,18 @@ $tangerine:#f29b29;
 $pink:#ea1c7c;
 $purple:#b22790;
 $chartruese:#dee04a;
+$chartruese_trans:rgba(224,224,71, 0.75);
 $lime:#aac437;
 html,body{
   font-family: 'Love Ya Like A Sister', cursive;
-  background-image: image-url("<%= asset_path('img-noise-tangering361x370') %>");
+  // background-image: image-url("<%= asset_path('img-noise-tangering361x370') %>");
   background-repeat: repeat;
+ }
+ body.tacos-index{
+  color:#FFF;
+ }
+ .modal p, .modal ul li{
+  color:#333;
  }
  header{
   margin-bottom:5%;
@@ -23,11 +30,44 @@ html,body{
 .navbar-nav > li > .dropdown-menu{
   z-index: 99;
 }
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{
+  border:none;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
+  background-color:transparent;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus{
+  color:$chartruese;
+}
+.dropdown-toggle{
+  position:absolute;
+  top:10px;
+  right:10px;
+  float:right;
+}
  .container-fluid{
   padding:0;
  }
- .tacos-show .container-fluid,.tacos-new .container-fluid{
+ body.tacos-show,body.tacos-new,body.sessions-new{
+  background-image: image-url("<%= asset_path('wood_tile.jpg') %>");
+  background-repeat: repeat;
+ }
+ .tacos-show .container-fluid,.tacos-new .container-fluid,.sessions-new .container-fluid{
   padding:0 5%;
+ }
+ .tacos-new .taco_single,.sessions-new .taco_single{
+  margin-top:100px;
+  background-color:$chartruese;
+  overflow:auto;
+ }
+ .tacos-new .taco_single input,.sessions-new .taco_single input{
+  color:$pink;
+ }
+  .tacos-new .taco_single input[type="submit"],.sessions-new .taco_single input[type="submit"]{
+  color:#FFF;
+ }
+ .tacos-new .taco_single label,.sessions-new .taco_single label{
+  color:$purple;
  }
  .signup-in{
   z-index: 18;
@@ -35,7 +75,7 @@ html,body{
  h1{
   font-family: 'Love Ya Like A Sister', cursive;
   font-size: 12vw;
-  color:$pink;
+  color:#FFF;
  }
  @media all and (min-width: 768px){
    h1{
@@ -56,8 +96,21 @@ header h1{
     font-size: 2.5vw;
    }
 }
+h2 a{
+  cursor:pointer;
+}
 h3.restaurant{
   color:$purple;
+}
+h3.taco_description{
+  color:#FFF;
+}
+h4{
+  font-family: 'Love Ya Like A Sister', cursive;
+  color:#b22790;
+}
+.tacos-show h4{
+  color:#333;
 }
  .rating{
   color:#73152D;
@@ -67,6 +120,10 @@ h3.restaurant{
  }
  label{
   display: block;
+ }
+ .tacos-show label{
+  display: inline-block;
+  margin-right:10px;
  }
  input, textarea, option{
   color:#73152D;
@@ -91,7 +148,19 @@ h3.restaurant{
  }
  .btn{
   margin-top:20px;
+  border-radius:0;
  }
+ .btn-warning {
+    color: #fff;
+    background-color: $pink;
+    border:none;
+  }
+  .btn-warning:hover{
+    background-color:$lime;
+  }
+  .btn-break{
+    display:block;
+  }
  /* UI============UI */
  /* Index */
 .top-tacos-list{
@@ -130,6 +199,22 @@ p.map_it a{
   right:20px;
   }
 }
+.single-taco-stats{
+  overflow: auto;
+  z-index: 27;
+  padding:10px;
+  position: relative;
+  right:auto;
+  background-color:$chartruese_trans;
+  text-align: left;
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.25);
+}
+@media all and (min-width: 768px){
+  .single-taco-stats{
+    position: absolute;
+    right:100px;
+  }
+}
 @media all and (min-width: 768px){
   #taco-map {
     position:absolute;
@@ -143,29 +228,45 @@ p.map_it a{
     z-index: 17;
   }
 }
-.tacos-new .taco-map-container, .tacos-show .taco-map-container, .restaurants-index .taco-map-container{
+.sessions-new .taco-map-container, .tacos-new .taco-map-container, .tacos-show .taco-map-container, .tacos-edit .taco-map-container, .restaurants-index .taco-map-container{
   display: none;
 }
-#taco_main,#taco_why,#taco_stage1,#taco_stage2,#taco_stage3,#taco_stage4,#taco_stage5{
+#taco_why,#taco_stage1,#taco_stage2,#taco_stage3,#taco_stage4,#taco_stage5{
   height: 100vh;
+  overflow: hidden;
+  // text-align: center;
+  position: relative;
+}
+#taco_main h1,#taco_why h1,#taco_stage1 h1,#taco_stage2 h1,#taco_stage3 h1,#taco_stage4 h1,#taco_stage5 h1,#taco_stage5 h2{
+  text-align: center;
+}
+#taco_main{
+  height: 80vh;
   overflow: hidden;
   text-align: center;
   position: relative;
 }
 #taco_why{
-  background-color:$tangerine;
+  // background-color:$tangerine;
+  background-image: image-url("<%= asset_path('why_taquistador.jpg') %>");
+  background-size:100%;
+  background-repeat:no-repeat;
+}
+.why_rows{
+  font-size: 1.25em;
 }
 #taco_stage1{
   background-color:$purple;
 }
-#taco_stage1 h1{
-  color:$lime;
+#taco_stage1 h2{
+  color:$chartruese;
 }
 #taco_stage2{
   background-color:$pink;
 }
-#taco_stage2 h1{
+#taco_stage2 h2{
   color:$chartruese;
+  text-decoration: line-through;
 }
 #taco_stage3{
   background-color:$lime;
@@ -173,8 +274,14 @@ p.map_it a{
 #taco_stage4{
   background-color:$chartruese;
 }
+#taco_stage4 p{
+  color:#333;
+}
 #taco_stage5{
-  background-color:$tangerine;
+  // background-color:$tangerine;
+  background-image: image-url("<%= asset_path('salud.jpg') %>");
+  background-size:100%;
+  background-repeat:no-repeat;
 }
 #taco_stage2{
   background-image: url(<%= image_url('corn-tortilla.png') %> );
@@ -184,7 +291,7 @@ p.map_it a{
 }
 @media all and (min-width: 768px){
   #taco_stage2{
-    background-size: 45%;
+    background-size: 40%;
   }
 }
 #taco_stage3{
@@ -195,7 +302,7 @@ p.map_it a{
 }
 @media all and (min-width: 768px){
   #taco_stage3{
-    background-size: 45%;
+    background-size: 40%;
   }
 }
 #taco_stage4{
@@ -206,20 +313,20 @@ p.map_it a{
 }
 @media all and (min-width: 768px){
   #taco_stage4{
-    background-size: 45%;
+    background-size: 40%;
   }
 }
-#taco_stage5{
-  background-image: url(<%= image_url('taco-all.png') %> );
-  background-size: 125%;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-}
-@media all and (min-width: 768px){
-  #taco_stage5{
-    background-size: 45%;
-  }
-}
+// #taco_stage5{
+//   background-image: url(<%= image_url('taco-all.png') %> );
+//   background-size: 125%;
+//   background-position: 50% 50%;
+//   background-repeat: no-repeat;
+// }
+// @media all and (min-width: 768px){
+//   #taco_stage5{
+//     background-size: 40%;
+//   }
+// }
 #tortilla{
   visibility: hidden;
 }
@@ -237,4 +344,16 @@ p.map_it a{
 }
 #taco{
   visibility: hidden;
+}
+.why_rows{
+  padding:0 5%;
+}
+.taco_elements{
+  margin-left:70px;
+}
+.taco_elements_first{
+  margin-left:40px;
+}
+.gm-style-iw p{
+  color:#333;
 }
