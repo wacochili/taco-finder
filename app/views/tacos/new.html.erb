@@ -1,7 +1,8 @@
 <section>
   <div class="row">
-    <div class="col-sm-12">
-      <div class="taco_single">
+    <div class="taco_single">
+      <div class="col-sm-4">
+        
         <h2>Create a new taco:</h2>
 
         <%= form_for @taco do |f| %>
@@ -19,40 +20,42 @@
           <%= f.label :description %>
           <%= f.text_area :description %>
         </div>
+      </div>
+      <div class="col-sm-4">
+        <h2>Ingredients:</h2>
         <div>
-          <h2>Taste: <%= f.select :taste_rating_id, TasteRating.all.map{ |rating| rating.taste_rating } %></h2>
+          <h2>Tortilla: <%= f.select :ingredient_tortilla_id, IngredientTortilla.all.map{ |tortilla| [tortilla.name, tortilla.id] } %></h2>
         </div>
         <div>
-          <h2>Heat: <%= f.select :heat_rating_id, HeatRating.all.map{ |rating| rating.heat_rating } %></h2>
+          <h2>Meat: <%= f.select :ingredient_filling_id, IngredientFilling.all.map{ |filling| [filling.meat, filling.id] } %></h2>
         </div>
         <div>
-          <h2>Tortilla: <%= f.select :ingredients_tortilla_id, IngredientTortilla.all.map{ |tortilla| [tortilla.name, tortilla.id] } %></h2>
-        </div>
-        <div>
-          <h2>Meat: <%= f.select :ingredients_filling_id, IngredientFilling.all.map{ |filling| [filling.meat, filling.id] } %></h2>
-        </div>
-        <div>
-          <h2>Salsa: <%= f.select :ingredients_salsa_id,  IngredientSalsa.all.map{ |salsa| [salsa.name, salsa.id] } %></h2>
+          <h2>Salsa: <%= f.select :ingredient_salsa_id,  IngredientSalsa.all.map{ |salsa| [salsa.name, salsa.id] } %></h2>
         </div>
         <div>
           <h2>Garnishes:</h2>
-          <%= f.label :ingredient_garnish_ids %>
           <%= f.select :ingredient_garnish_ids, IngredientGarnish.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
         </div>
-
         <div>
-          <%= f.fields_for :restaurant do |ff| %>
-          <%= ff.label :name %>
-          <%= ff.text_field :name %>
-
-          <%= ff.label :phone %>
-          <%= ff.text_area :phone %>
-          <%= ff.label :address %>
-          <%= ff.text_area :address %>
+          <%= f.fields_for :images do |ff| %>
+          <%= ff.label :photo %>
+          <%= ff.file_field :photo, multiple: true, name: "taco[images_attributes][][photo]" %>
           <% end %>
-          
         </div>
-        <%= f.submit "Add Taco" %>
+      </div>
+      <div class="col-sm-4">
+        <h2>Taqueria:</h2>
+        <%= f.fields_for :restaurant do |ff| %>
+        <%= ff.label :name %>
+        <%= ff.text_field :name %>
+
+        <%= ff.label :phone %>
+        <%= ff.text_field :phone %>
+        <%= ff.label :address %>
+        <%= ff.text_area :address %>
+        <% end %>
+        
+        <%= f.submit "Add Taco", class: 'btn btn-warning' %>
         <% end %>
       </div>
     </div>

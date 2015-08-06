@@ -1,1 +1,249 @@
-<h1>Are you working?</h1>
+<section id="taco_main">
+  <div class="row">
+    <div class="col-xs-12">
+      <!--MAP WILL ULTIMATELY GO HERE???-->
+      <div id="mapka"></div>
+    </div>
+    <div class="col-sm-3 col-xs-12 top-tacos-list">
+    <h2>Authentic Tacos Near You</h2>
+      <!--THIS SHOULD ULTIMATELY BE LOCATION-BASED AS WELL-->
+        <% @tacos.limit(10).order("authentic_score desc").each do |taco| %>
+        <div class="row">
+          <div class="col-xs-6">
+            <h4><a href="/tacos/<%= taco.id %>" title="View <%= taco.name %>"><%= taco.name %></a></h4>
+            <h3><%= taco.restaurant.name %></h3>
+          </div>
+          <div class="col-xs-6">
+            <a href="/tacos/<%= taco.id %>" title="View <%= taco.name %>"><img src="<%= taco.images.last.photo %>" class="img-responsive taco_single_image"></a>
+          </div>
+        </div>
+        <% end %>
+    </div>
+  </div>
+</section>
+
+<section id="taco_why">
+  <div class="row why_rows">
+    <h1>TAQUISTADOR?</h1>
+    <div class="col-sm-3">
+      <h2>Authenticity <a data-toggle="modal" data-target="#taquistadorInfo" class=""><%= image_tag("sticker50_rt.png", height: '48') %></a></h2>
+      <p>Taquistador finds authentic tacos near you using a secret algorithm to measure authenticity of tacos and the taquerias that serve them.</p>
+    </div>
+  </div>
+</section>
+
+<section id="taco_stage1">
+  <div class="row why_rows">
+    <h1>TORTILLA</h1>
+    <div class="col-sm-3">
+      <h2>Corn is King <a data-toggle="modal" data-target="#cornInfo" class=""><%= image_tag("sticker50.png", height: '48') %></a></h2>
+        <p>Although flour is often used in northern parts of Mexico and is popular for use with fish tacos across America, the venerable corn tortilla still reigns supreme and is the tortilla of choice for Taquistadors everywhere.</p>
+    </div>
+    <div id="tortilla" class="col-sm-3">
+      <%= image_tag("corn-tortilla.png", :alt => "corn tortilla", :width => "488", :height => "488", :class => "taco_elements_first") %>
+    </div>
+    <div class="col-sm-3"></div>
+  </div><!--row end-->
+</section>
+
+<section id="taco_stage2">
+  <div class="row why_rows">
+    <h1>MEAT</h1>
+    <div class="col-sm-3">
+      <h2>Vegetarian <a data-toggle="modal" data-target="#fillingInfo" class=""><%= image_tag("sticker50_rt.png", height: '48') %></a></h2>
+      <p>A taco can be made with a variety of fillings, including beef, pork, chicken, seafood, vegetables and cheese, allowing for great versatility and variety. A more recent trend of vegetarian tacos notwithstanding, traditional taco fillings include a variety of meats.</p>
+    </div>
+    <div class="col-sm-3">
+      <div id="meat">
+      <%= image_tag("Pork-Belly-Carnitas-overhead-WM.png", :alt => "pork carnitas", :width => "400", :height => "436", :class => "taco_elements") %>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+</section>
+
+<section id="taco_stage3">
+  <h1>GARNISH</h1>
+  <div class="row why_rows">
+    <div class="col-sm-3">
+      <h2>Fresh <a data-toggle="modal" data-target="#garnishesInfo" class=""><%= image_tag("sticker50.png", height: '48') %></a></h2>
+      <p>A taco can be garnished with a variety of fresh ingredients, but the most ubiquitous 'husband-and-wife' garnish of choice happens to be simply onions and cilantro! It's also typical to serve a tradtional taco with a lime wedge and an optional grilled green onion.</p>
+    </div>
+    <div class="col-sm-3">
+      <div id="garnish">
+        <%= image_tag("onion-cilantro.png", :alt => "onions and cilantro", :width => "488", :height => "488", :class => "taco_elements") %>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+</section>
+
+<section id="taco_stage4">
+  <h1>SALSAS</h1>
+  <div class="row why_rows">
+    <div class="col-sm-3">
+      <h2>Fresh! <a data-toggle="modal" data-target="#salsaInfo" class=""><%= image_tag("sticker50_rt.png", height: '48') %></a></h2>
+      <p>Mexican salsas were traditionally produced using the mortar and pestle-like molcajete, although blenders are now more commonly used. The Mayans made salsa also, using a mortar and pestle</p>
+    </div>
+    <div class="col-sm-3">
+      <div id="salsas">
+        <%= image_tag("salsa.png", :alt => "salsa", :width => "488", :height => "488", :class => "taco_elements") %>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+</section>
+
+<section id="taco_stage5">
+  <h1>SALUD!</h1>
+  <h2>Support local taquerias!</h2>
+  <div class="row why_rows">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-3">
+      <div id="tacos">
+      <!--fun image here-->
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+  <!--modals-->
+
+  <div class="modal fade" id="cornInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><!--tortilla-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">A BRIEF HISTORY OF TORTILLAS</h4>
+        </div>
+        <div class="modal-body">
+          <span class="vote-warning">
+            <p>According to Maya legend, tortillas were invented by a peasant for his hungry king in ancient times. The first tortillas discovered, which date back to approximately 10,000 BC, were made of native maize with dried kernel. The Aztecs used maize, both eaten straight from the cob and in recipes. They ground the maize, and used the cornmeal to make a dough called masa.</p>
+            <p>On 22 April 1519, Spaniards led by Hernán Cortés, also known as Hernando Cortez, arrived in what is now Mexico. They found that the inhabitants (Aztecs and other native Mexican peoples) made flat maize bread. The native Nahuatl name for this was tlaxcalli.</p>
+            <p>This bread made from maize was later given the name tortilla (little cake) by the Spanish.</p>
+            <h4>AUTHENTIC INGREDIENTS</h4>
+            <ul>
+              <li>Corn Masa</li>
+              <li>Salt</li>
+              <li>Lime</li>
+            </ul>
+          </span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="taquistadorInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><!--taquistador-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">WHY AM I DOING THIS?</h4>
+        </div>
+        <div class="modal-body">
+          <span class="vote-warning">
+            <p>Leaving Los Angeles, I left behind (or so I thought) my favorite food – authentic tacos. Great tacos are in Chicago, however, they’re hard to find in most cases! Taquistador aims to solve that problem. Built using Ruby on Rails, incorporating bits of Angular and Bootstrap, the app uses geolocation to find authentic tacos near you – ranked for authenticity based on a secret algorithm attaching values to ingredients. Optional taste and heat ratings reveal a little more about these irresistible bites of goodness!</p>
+            <h4>A BRIEF HISTORY OF THE TACO</h4>
+            <p>The taco predates the arrival of Europeans in Mexico. There is anthropological evidence that the indigenous people living in the lake region of the Valley of Mexico traditionally ate tacos filled with small fish. Writing at the time of the Spanish conquistadors, Bernal Díaz del Castillo documented the first taco feast enjoyed by Europeans, a meal which Hernán Cortés arranged for his captains in Coyoacán. It is not clear why the Spanish used their word, "taco", to describe this indigenous food.</p>
+          </span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="fillingInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><!--filling-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">A FEW OF THE MANY VARIETIES OF TACO FILLINGS</h4>
+        </div>
+        <div class="modal-body">
+          <span class="vote-warning">
+            <ul>
+              <li>Tacos Al pastor/De Adobada - thin pork steaks seasoned with adobo seasoning, then flame-broiled on a vertical rotisserie.</li>
+              <li>Tacos de Asador (spit or grilled tacos) - including carne asada, tripe and chorizo.</li>
+              <li>Tacos de Cabeza (or head tacos) - including Sesos (brains); Lengua (tongue); Cachete (cheeks); Trompa (lips); and, Ojo (eye).</li>
+              <li>Tacos de Camarones (shrimp tacos) originated in Baja California, Mexico. Grilled or fried shrimp.</li>
+              <li>Tacos de Cazo - fried in lard , meats typically include: Tripa (tripe, usually from a pig instead of a cow); Suadero (tender beef cuts), and Carnitas.</li>
+              <li>Tacos de Lengua - beef tongue tacos. It is said that unless a taqueria offers tacos de lengua, it is not a real taqueria</li>
+              <li>Tacos de Pescado (fish tacos) originated in Baja California, Mexico, where they consist of grilled or fried fish.</li>
+            </ul>
+          </span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="garnishesInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><!--garnishes-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">TRADITIONAL GARNISHES</h4>
+        </div>
+        <div class="modal-body">
+          <span class="vote-warning">
+            <ul>
+              <li>onion</li>
+              <li>cilantro</li>
+              <li>avocado</li>
+              <li>cabbabe</li>
+              <li>pickled onions</li>
+              <li>lime</li>
+              <li>tomatoes</li>
+              <li>lettuce</li>
+              <li>queso fresco</li>
+              <li>crema</li>
+              <li>grilled green onions</li>
+            </ul>
+          </span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="salsaInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><!--salsas-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">SALSAS!</h4>
+        </div>
+        <div class="modal-body">
+          <span class="vote-warning">
+            <p>Salsas are just about everyone's favorite taco accompaniment! Salsa is the Spanish term for sauce, and in English-speaking countries usually refers to the sauces typical of Mexican cuisine known as salsa picante.</p>
+            <h4>COMMON SALSAS</h4>
+            <ul>
+              <li>Salsa roja, is used as a condiment in Mexican and Southwestern (U.S.) cuisines; usually includes cooked tomatoes, chili peppers, onion, garlic, and fresh cilantro (coriander).</li>
+              <li>Pico de gallo ("rooster's beak"), also known as salsa fresca, salsa picada, or salsa mexicana, is made with raw tomatoes, lime juice, chili peppers, onions, cilantro leaves, and other coarsely chopped raw ingredients.</li>
+              <li>Salsa verde, "green sauce", in Mexican versions, is made with tomatillos, usually cooked</li>
+              <li>Salsa negra, "black sauce" is a Mexican sauce made from dried chilis, oil, and garlic.</li>
+              <li>Salsa taquera, "taco sauce": Made with tomatillos and morita chili</li>
+              <li>Salsa ranchera, "ranch-style sauce": Made with roasted tomatoes, various chilies, and spices, it typically is served warm, and possesses a thick, soupy quality</li>
+              <li>Guacamole is thicker than a sauce and generally used as a dip; it refers to any sauce where the main ingredient is avocado.</li>
+            </ul>
+          </span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+ 
