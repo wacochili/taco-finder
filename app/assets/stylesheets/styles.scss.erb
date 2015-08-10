@@ -19,9 +19,10 @@ html,body{
   margin-bottom:5%;
  }
  .navbar-default{
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
   border:none;
   z-index: 54;
+  padding-bottom:20px;
  }
  .navbar-default .navbar-nav > li > a {
   color: $pink;
@@ -51,6 +52,7 @@ html,body{
  body.tacos-show,body.tacos-new,body.sessions-new{
   background-image: image-url("<%= asset_path('wood_tile.jpg') %>");
   background-repeat: repeat;
+  background-size:contain;
  }
  .tacos-show .container-fluid,.tacos-new .container-fluid,.sessions-new .container-fluid{
   padding:0 5%;
@@ -241,14 +243,15 @@ p.map_it a{
   text-align: center;
 }
 #taco_main{
-  height: 80vh;
+  height: 77vh;
   overflow: hidden;
   text-align: center;
   position: relative;
 }
 #taco_why{
   // background-color:$tangerine;
-  background-image: image-url("<%= asset_path('why_taquistador.jpg') %>");
+  padding-top:20px;
+  background-image: image-url("<%= asset_path('why_taquistador_2.jpg') %>");
   background-size:100%;
   background-repeat:no-repeat;
 }
@@ -352,7 +355,10 @@ p.map_it a{
   margin-left:70px;
 }
 .taco_elements_first{
-  margin-left:40px;
+  margin-left:70px;
+}
+.taco_elements_meat{
+  margin-left:110px;
 }
 .gm-style-iw p{
   color:#333;
