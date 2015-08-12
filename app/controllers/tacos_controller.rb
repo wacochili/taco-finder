@@ -1,8 +1,8 @@
-class TacosController < ApplicationController   
-  before_action: authenticate_admin!, except: [:index, :show, :search, :new]   
+class TacosController < ApplicationController
+  before_action :authenticate_admin!, except: [:index, :show, :search]
   def index
-    p request.remote_ip     
-    @tacos = Taco.all   
+    p request.remote_ip
+    @tacos = Taco.all
   end
 
   def show
@@ -63,14 +63,14 @@ class TacosController < ApplicationController
   end
 
   def search #not RESTful - be on the lookout for another way later
-    search_term = params[:search]
-    @tacos = Taco.where("name LIKE ? OR description LIKE ?", "%#{search_term}%", "%#{search_term}%")
+  search_term = params[:search]
+  @tacos = Taco.where("name LIKE ? OR description LIKE ?", "%#{search_term}%", "%#{search_term}%")
   render :index #use if we ever have an action whose view name is diff than action
-end
+  end
 
-private
+  private
 
-def taco_params
-  params.require(:taco).permit(:name, :price, :description, :taste_rating_id, :heat_rating_id, :ingredient_tortilla_id, :ingredient_filling_id, :ingredient_salsa_id, :checked_boxes, restaurant_attributes: [:id, :name, :address, :phone], images_attributes: [:photo], ingredient_garnish_ids: [])
-end
+  def taco_params
+    params.require(:taco).permit(:name, :price, :description, :taste_rating_id, :heat_rating_id, :ingredient_tortilla_id, :ingredient_filling_id, :ingredient_salsa_id, :checked_boxes, restaurant_attributes: [:id, :name, :address, :phone], images_attributes: [:photo], ingredient_garnish_ids: [])
+  end
 end
