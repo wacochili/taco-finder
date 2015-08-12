@@ -1,3 +1,6 @@
+User.create!([
+  {email: "rich.baukovic@brickfish.com", encrypted_password: "$2a$10$g0.s3G5w9xVvUaY.rQx6Ne1txZi2dNXYkAEW.7..4XhV4ByGcu.rq", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 21, current_sign_in_at: "2015-08-12 02:23:40", last_sign_in_at: "2015-08-12 02:05:17", current_sign_in_ip: "::1", last_sign_in_ip: "::1", admin: true}
+])
 FillingCategory.create!([
   {name: "carne de res/beef"},
   {name: "pollo/chicken"},
@@ -318,6 +321,6 @@ UserRating.create!([
   {user_id: 2, taste_rating: "5.0", heat_rating: "5.0", taco_id: 94},
   {user_id: 2, taste_rating: "5.0", heat_rating: "5.0", taco_id: 91},
   {user_id: 2, taste_rating: "5.0", heat_rating: "5.0", taco_id: 94},
-  {user_id: 2, taste_rating: nil, heat_rating: nil, taco_id: 94},
-  {user_id: 2, taste_rating: "5.0", heat_rating: "5.0", taco_id: 97}
+  {user_id: 2, taste_rating: "5.0", heat_rating: "5.0", taco_id: 97},
+  {user_id: 2, taste_rating: "5.0", heat_rating: "2.0", taco_id: 94}
 ])
