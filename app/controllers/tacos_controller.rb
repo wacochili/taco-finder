@@ -8,7 +8,7 @@ class TacosController < ApplicationController
   def show
     if current_user
       @current_user_id = current_user.id
-    else
+    elsep
       @current_user_id = ""
     end
     if params[:id] == "random"
@@ -26,6 +26,9 @@ class TacosController < ApplicationController
   end
 
   def create
+    unless user_signed_in?
+    redirect_to "/"
+    end
     coordinates = Geocoder.coordinates(params[:taco][:restaurant_attributes][:address])
     @taco =Taco.new(taco_params)
     @taco.user_id = current_user.id
