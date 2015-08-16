@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   get "/"           => 'tacos#index'
   get "/tacos"      => 'tacos#index'
   get "/tacos/new"  => 'tacos#new'
-  get "tacos/:id"   => 'tacos#show', as: :taco
   post "/tacos"     => 'tacos#create'
+  get "/tacos/:id"   => 'tacos#show', as: :taco
 
   
   get "/tacos/:id/edit"       => 'tacos#edit'
