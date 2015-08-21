@@ -8,7 +8,7 @@ class TacosController < ApplicationController
   def show
     if current_user
       @current_user_id = current_user.id
-    elsep
+    else
       @current_user_id = ""
     end
     if params[:id] == "random"
