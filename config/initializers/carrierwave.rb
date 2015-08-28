@@ -3,7 +3,7 @@ CarrierWave.configure do |config|
     provider:              'AWS',                        # required
     aws_access_key_id:     ENV['AWS_ACCESS_KEY_ID'],     # required
     aws_secret_access_key: ENV['AWS_SECRET_KEY'],        # required
-    region:                '',                  # optional, defaults to 'us-east-1'
+    region:                'us-east-1',                  # optional, defaults to 'us-east-1'
   }
   config.fog_directory  = 'taquistador'                  	        	   # required
   config.fog_public     = false                             	           # optional, defaults to true
