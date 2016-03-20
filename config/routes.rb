@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "/tacos"      => 'tacos#index'
   get "/tacos/new"  => 'tacos#new'
   post "/tacos"     => 'tacos#create'
-  get "/tacos/:id"   => 'tacos#show', as: :taco
+  get "/tacos/:id"  => 'tacos#show', as: :taco
 
   
   get "/tacos/:id/edit"       => 'tacos#edit'
@@ -22,10 +22,20 @@ Rails.application.routes.draw do
   patch '/restaurants/:id'    => 'restaurants#update'
   delete '/restaurants/:id'   => 'restaurants#destroy'
 
-  post 'user_ratings' => 'user_ratings#create'
+  post 'user_ratings'         => 'user_ratings#create'
 
   namespace :api do
     namespace :v1 do
+      get "/tacos"      => 'tacos#index'
+      get "/tacos/new"  => 'tacos#new'
+      post "/tacos"     => 'tacos#create'
+      get "/tacos/:id"  => 'tacos#show', as: :taco
+
+      
+      get "/tacos/:id/edit"       => 'tacos#edit'
+      delete "/tacos/:id"         => 'tacos#destroy'
+      patch "/tacos/:id"          => 'tacos#update'
+      get "/tacos/:id"            => 'tacos#show'
       get 'tacos/user_ratings'        => 'user_ratings#index'
       get 'tacos/:id/user_ratings'    => 'user_ratings#show'
       post 'tacos/:id/user_ratings'   => 'user_ratings#create'
@@ -37,5 +47,12 @@ Rails.application.routes.draw do
       patch '/restaurants/:id'   => 'restaurants#update'
     end
   end
+
+  # resources :api do
+  #   resources :v1 do
+  #     resources :tacos
+  #     resources :restaurants
+  #   end
+  # end
 
 end

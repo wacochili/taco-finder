@@ -3,6 +3,7 @@ var userLat = 0;
 var userLong = 0;
 
 window.onload = initialize;
+// window.onload = loadScript;
 
 function initialize() {
     // Get the coordinates
@@ -221,7 +222,7 @@ function initializeMap() {
     map.setMapTypeId('Grayscale');
 
     function showInfoWindow(event){
-        var contentString = '<h4>' + this.title + '</h4>' + '<h5>' + this.location + '</h5>' + '<p>' + this.address + '</p><p><a href="http://maps.google.com/?q=' + this.address + '" target="_blank">Map It!</a></p>';
+        var contentString = '<h4>' + this.title + '</h4>' + '<h5>' + this.food + '</h5>' + '<p>' + this.address + '</p><p><a href="http://maps.google.com/?q=' + this.address + '" target="_blank">Map It!</a></p>';
         var infowindow = new google.maps.InfoWindow({
             content: contentString,
             maxWidth: 200
@@ -229,26 +230,26 @@ function initializeMap() {
         infowindow.open(map, this);
     }
 
-    $.get('/api/v1/tacos.json', function (data){
+    $.get('/api/v1/restaurants.json', function (data){
         var bounds = new google.maps.LatLngBounds();//1-A.variable for setting boundaries
-        for(var i = 0; i < data.tacos.length; i++){
-            var taco = data.tacos[i];
-            if(taco.latitude < userLat + 0.1 && taco.longitude > userLong - 0.1 && taco.latitude > userLat - 0.1 && taco.longitude < userLong + 0.1){
-              var companyPos = new google.maps.LatLng(taco.latitude,taco.longitude);
-              bounds.extend(companyPos);
-            } else{
-              var companyPos = new google.maps.LatLng(taco.latitude,taco.longitude);
+        for(var i = 0; i < data.restaurants.length; i++){
+            var restaurant = data.restaurants[i];
+            if(restaurant.latitude < userLat + 0.1 && restaurant.longitude > userLong - 0.1 && restaurant.latitude > userLat - 0.1 && restaurant.longitude < userLong + 0.1){
+                var companyPos = new google.maps.LatLng(restaurant.latitude,restaurant.longitude);
+                bounds.extend(companyPos);
+            }else{
+                var companyPos = new google.maps.LatLng(restaurant.latitude,restaurant.longitude);
             }
             var image = 'https://s3.amazonaws.com/taquistador/pin_45.png';
             var companyMarker = new google.maps.Marker({
-              position: companyPos,
-              map: map,
-              title: taco.name,
-              location: taco.restaurant_name,
-              address: taco.address,
-              animation: google.maps.Animation.DROP,
-              icon: image,
-              zIndex: 3000});
+                position: companyPos,
+                map: map,
+                title: restaurant.name,
+                food: restaurant.tacos[0].name,
+                address: restaurant.address,
+                animation: google.maps.Animation.DROP,
+                icon: image,
+                zIndex: 3000});
             google.maps.event.addListener(companyMarker, 'click', showInfoWindow);
           }
         map.fitBounds(bounds);//1-B.sets bounds and center

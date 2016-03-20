@@ -1,8 +1,10 @@
 class TacosController < ApplicationController
-  before_action :authenticate_admin!, except: [:index, :show, :search]
+  before_action :authenticate_admin!, only: [:destroy]
+
   def index
     p request.remote_ip
     @tacos = Taco.all
+    @restaurants = Restaurant.all
   end
 
   def show
@@ -27,7 +29,7 @@ class TacosController < ApplicationController
 
   def create
     unless user_signed_in?
-    redirect_to "/"
+      redirect_to "/"
     end
     coordinates = Geocoder.coordinates(params[:taco][:restaurant_attributes][:address])
     @taco =Taco.new(taco_params)
@@ -65,10 +67,20 @@ class TacosController < ApplicationController
     end
   end
 
+  def destroy
+  unless user_signed_in? && current_user.admin
+    redirect_to "/"
+  end
+  @taco = Taco.find_by(id: params[:id])
+  @taco.destroy
+  flash[:warning] = "Taco destroyed!"
+  redirect_to "/"
+  end
+
   def search #not RESTful - be on the lookout for another way later
-  search_term = params[:search]
-  @tacos = Taco.where("name LIKE ? OR description LIKE ?", "%#{search_term}%", "%#{search_term}%")
-  render :index #use if we ever have an action whose view name is diff than action
+    search_term = params[:search]
+    @tacos = Taco.where("name LIKE ? OR description LIKE ?", "%#{search_term}%", "%#{search_term}%")
+    render :index #use if we ever have an action whose view name is diff than action
   end
 
   private
